@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import {
   TextInput,
   Button,
@@ -52,58 +52,73 @@ export default function AuthScreen() {
 
   return (
     <PaperProvider>
-      <View style={styles.authContainer}>
-        <Card style={styles.card}>
-          <Card.Content>
-            <Title style={styles.title}>{isLogin ? "Login" : "Sign Up"}</Title>
-            <TextInput
-              label="Email"
-              value={email}
-              onChangeText={setEmail}
-              mode="outlined"
-              style={styles.input}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-            <TextInput
-              label="Password"
-              value={password}
-              onChangeText={setPassword}
-              mode="outlined"
-              secureTextEntry
-              style={styles.input}
-            />
-            {!isLogin && (
+      <ImageBackground
+        source={require("../../assets/images/backgrounds/auth-back.jpeg")}
+        style={styles.background}
+      >
+        <View style={styles.authContainer}>
+          <Card style={styles.card}>
+            <Card.Content>
+              <Title style={styles.title}>
+                {isLogin ? "Login" : "Sign Up"}
+              </Title>
               <TextInput
-                label="Confirm Password"
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
+                label="Email"
+                value={email}
+                onChangeText={setEmail}
+                mode="outlined"
+                style={styles.input}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+              <TextInput
+                label="Password"
+                value={password}
+                onChangeText={setPassword}
                 mode="outlined"
                 secureTextEntry
                 style={styles.input}
               />
-            )}
+              {!isLogin && (
+                <TextInput
+                  label="Confirm Password"
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                  mode="outlined"
+                  secureTextEntry
+                  style={styles.input}
+                />
+              )}
 
-            <Button mode="contained" onPress={handleAuth} style={styles.button}>
-              {isLogin ? "Login" : "Sign Up"}
-            </Button>
-            <Button
-              mode="text"
-              onPress={handleToggle}
-              style={styles.toggleButton}
-            >
-              {isLogin
-                ? "Don't have an account? Sign Up"
-                : "Already have an account? Login"}
-            </Button>
-          </Card.Content>
-        </Card>
-      </View>
+              <Button
+                mode="contained"
+                onPress={handleAuth}
+                style={styles.button}
+              >
+                {isLogin ? "Login" : "Sign Up"}
+              </Button>
+              <Button
+                mode="text"
+                onPress={handleToggle}
+                style={styles.toggleButton}
+              >
+                {isLogin
+                  ? "Don't have an account? Sign Up"
+                  : "Already have an account? Login"}
+              </Button>
+            </Card.Content>
+          </Card>
+        </View>
+      </ImageBackground>
     </PaperProvider>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+  },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -114,7 +129,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 20,
-    backgroundColor: "#f8f9fa",
   },
   card: {
     padding: 16,
